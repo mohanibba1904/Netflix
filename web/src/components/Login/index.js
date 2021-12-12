@@ -53,10 +53,12 @@ class Login extends Component {
   attemptLogin = async event => {
     event.preventDefault()
     const {username, password} = this.state
-    const userDetails = {username, password}
-    const loginUrl = 'https://apis.ccbp.in/login'
+    const user_name =username
+    const userDetails = {user_name, password}
+    const loginUrl = 'http://127.0.0.1:8000/login'
     const loginOptions = {
       method: 'POST',
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify(userDetails),
     }
     const response = await fetch(loginUrl, loginOptions)
