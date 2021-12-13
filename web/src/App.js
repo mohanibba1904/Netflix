@@ -4,9 +4,7 @@ import {Switch, Route, Redirect} from 'react-router-dom'
 import AuthenticatedRoute from './components/AuthenticatedRoute'
 import Login from './components/Login'
 import Home from './components/Home'
-
 import SavedVideos from './components/SavedVideos'
-import VideoItemDetails from './components/VideoItemDetails'
 import NotFound from './components/NotFound'
 import Context from './Context/Context'
 
