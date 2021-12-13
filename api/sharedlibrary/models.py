@@ -16,3 +16,13 @@ class User(Base):
 
 
 
+class Movie(Base):
+    __tablename__ = "movies"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String)
+    thumbnail_url = Column(String)
+    name = Column(String)
+    profile_image_url = Column(String)
+    view_count = Column(String)
+    published_at = Column(String)

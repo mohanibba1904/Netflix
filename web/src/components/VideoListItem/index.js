@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom'
 
 import {BsDot} from 'react-icons/bs'
 import {format, formatDistanceToNow} from 'date-fns'
+import {CgPlayListAdd} from 'react-icons/cg'
 
 import Context from '../../Context/Context'
 
@@ -19,25 +20,42 @@ import {
   VideoListItemChannelName,
   VideoListItemViewsTimeContainerSmall,
   VideoListItemViewsTimeContainerLarge,
+  VideoItemDetailsSmallButton,
   VideoListItemContainerItemText,
 } from './styledComponents'
+
+
+
 
 const VideoItemCard = props => (
   <Context.Consumer>
     {value => {
-      const {isLightThemeActive} = value
+      const {isLightThemeActive,savedVideosList,saveOrDeleteVideo} = value
       const {videoItem} = props
       const formattedDate = format(
         new Date(videoItem.publishedAt),
         'yyyy, MM, dd',
+        
       )
+
+      const onClickSaveOrDeleteButton = () => {
+        saveOrDeleteVideo(videoDetails)
+      }      
+
+      const activeButtonColor = '#2563eb'
+      const inActiveButtonColor = ' #64748b'
       const newDate = new Date(formattedDate)
       const publishedTimeAgo = formatDistanceToNow(newDate)
+
+      const alreadySavedVideos = savedVideosList.filter(
+        eachItem => eachItem.id === videoDetails.id,
+      )
+      const isThisVideoSaved = alreadySavedVideos.length !== 0
 
       const headTextColor = isLightThemeActive ? '#313131' : '#f9f9f9'
       const textColor = isLightThemeActive ? '#424242' : '#7e858e'
       return (
-        <Link className="link-style" to={`videos/${videoItem.id}`}>
+        
           <VideoListItem>
             <VideoListItemContainer>
               <VideoListItemThumbnailContainer>
@@ -49,7 +67,7 @@ const VideoItemCard = props => (
               <VideoListItemContentContainer>
                 <VideoListItemContentProfileContainer>
                   <VideoListItemContentProfileImage
-                    src={videoItem.channel.profileImageUrl}
+                    src={videoItem.profileImageUrl}
                     alt="channel logo"
                   />
                 </VideoListItemContentProfileContainer>
@@ -58,7 +76,7 @@ const VideoItemCard = props => (
                     {videoItem.title}
                   </VideoListItemContentItemsHeading>
                   <VideoListItemChannelName color={textColor}>
-                    {videoItem.channel.name}
+                    {videoItem.name}
                   </VideoListItemChannelName>
                   <VideoListItemViewsTimeContainerLarge>
                     <VideoListItemContainerItemText
@@ -68,12 +86,22 @@ const VideoItemCard = props => (
                     <VideoListItemContainerItemText color={textColor}>
                       {publishedTimeAgo}
                     </VideoListItemContainerItemText>
+                    <VideoItemDetailsSmallButton
+                  type="button"
+                  onClick={onClickSaveOrDeleteButton}
+                  color={
+                    isThisVideoSaved ? activeButtonColor : inActiveButtonColor
+                  }
+                >
+                  <CgPlayListAdd />
+                  {isThisVideoSaved ? 'Saved' : 'Save'}
+                </VideoItemDetailsSmallButton>
                   </VideoListItemViewsTimeContainerLarge>
                 </VideoListItemContentItemsContainer>
               </VideoListItemContentContainer>
             </VideoListItemContainer>
           </VideoListItem>
-        </Link>
+      
       )
     }}
   </Context.Consumer>

@@ -27,7 +27,8 @@ export const MainContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   @media screen and (min-width: 768px) {
-    width: 70%;
+    width: 80%;
+    height: 100vh;
   }
 `
 
@@ -64,10 +65,10 @@ export const BannerCloseButton = styled.button`
 
 export const BannerImage = styled.img`
   width: 100px;
-  height: 20px;
+  height: 40px;
   @media screen and (min-width: 768px) {
     width: 120px;
-    height: 30px;
+    height: 50px;
   }
 `
 

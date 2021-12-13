@@ -31,6 +31,8 @@ export const VideoListItemThumbnailImage = styled.img`
   margin: 0px 0px 10px 0px;
   @media screen and (min-width: 768px) {
     width: 220px;
+    height: 250px;
+    margin: 10px;
   }
 `
 
@@ -123,3 +125,25 @@ export const VideoListItemContainerItemText = styled.p`
     font-size: 10px;
   }
 `
+
+
+export const VideoItemDetailsSmallButton = styled.button`
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Roboto';
+  font-size: 14px;
+  padding: 0px;
+  margin: 10px 0px 10px 0px;
+  font-weight: 600;
+  color: ${props => props.color};
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  @media screen and (min-width: 768px) {
+    font-size: 18px;
+  }
+`
+

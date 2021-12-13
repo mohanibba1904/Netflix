@@ -90,56 +90,9 @@ class SideBarSection extends Component {
                       activeRoute === 'trending' ? '#909090' : 'transparent'
                     }
                   >
-                    <HiFire
-                      size="22"
-                      color={
-                        activeRoute === 'trending'
-                          ? '#ff0000'
-                          : sidebarContainerIconsColor
-                      }
-                    />
-                    <SidebarTopContainerListItemText
-                      color={sidebarContainerTextColor}
-                    >
-                      <Link
-                        to="/trending"
-                        style={{
-                          textDecoration: 'none',
-                          color: `${sidebarContainerTextColor}`,
-                        }}
-                      >
-                        Trending
-                      </Link>
-                    </SidebarTopContainerListItemText>
+                   
                   </SidebarTopContainerListItem>
-                  <SidebarTopContainerListItem
-                    onClick={onClickGamingRoute}
-                    backgroundColor={
-                      activeRoute === 'gaming' ? '#909090' : 'transparent'
-                    }
-                  >
-                    <SiYoutubegaming
-                      size="22"
-                      color={
-                        activeRoute === 'gaming'
-                          ? '#ff0000'
-                          : sidebarContainerIconsColor
-                      }
-                    />
-                    <SidebarTopContainerListItemText
-                      color={sidebarContainerTextColor}
-                    >
-                      <Link
-                        to="/gaming"
-                        style={{
-                          textDecoration: 'none',
-                          color: `${sidebarContainerTextColor}`,
-                        }}
-                      >
-                        Gaming
-                      </Link>
-                    </SidebarTopContainerListItemText>
-                  </SidebarTopContainerListItem>
+                  
                   <SidebarTopContainerListItem
                     onClick={onClickSavedVideosRoute}
                     backgroundColor={
@@ -164,7 +117,7 @@ class SideBarSection extends Component {
                           color: `${sidebarContainerTextColor}`,
                         }}
                       >
-                        Saved videos
+                        Favorite Movies
                       </Link>
                     </SidebarTopContainerListItemText>
                   </SidebarTopContainerListItem>

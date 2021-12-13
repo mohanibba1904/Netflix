@@ -113,6 +113,22 @@ def login(request:schemas.Data,db:Session= Depends(get_db)):
     return "user not found"
 
 
+
+
+
+@app.get('/movies')
+def get_movie(db: Session = Depends(get_db)):
+    productDetails = db.query(models.Movie).all()
+    return productDetails
+
+
+
+@app.get("/movies/{movie_id}")
+def get_movie_id(movie_id: int, db: Session = Depends(get_db)):
+    db_user = db.query(models.Movie).filter(models.Movie.id== movie_id).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return db_user    
 # class Test():
 #     user: str
 

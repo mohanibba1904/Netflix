@@ -41,8 +41,8 @@ class Header extends Component {
             ? '#ffffff'
             : '#181818'
           const headerLogoImage = isLightThemeActive
-            ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
-            : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
+            ? 'https://res.cloudinary.com/dnbrzqhbk/image/upload/v1639388967/wp5063339_dyoz5m.png'
+            : 'https://res.cloudinary.com/dnbrzqhbk/image/upload/v1639388967/wp5063339_dyoz5m.png'
           const onClickLogoImage = () => {
             alterActiveRoute('home')
           }
