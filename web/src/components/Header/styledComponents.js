@@ -19,7 +19,7 @@ export const HeaderLogo = styled.img`
   height: 24px;
   width: 100px;
   @media screen and (min-width: 768px) {
-    height: 40px;
+    height: 50px;
     width: 160px;
   }
 `
@@ -67,6 +67,7 @@ export const HeaderLargeUserImage = styled.img`
     width: 40px;
     height: 40px;
     cursor: pointer;
+    border-radius: 40px;
   }
 `
 

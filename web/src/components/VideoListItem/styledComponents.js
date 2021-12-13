@@ -2,12 +2,12 @@ import styled from 'styled-components'
 
 export const VideoListItem = styled.li`
   list-style-type: none;
-  margin: 10px;
+  margin: 5px;
   width: 350px;
-  height: 300px;
+  height: 100%;
   @media screen and (min-width: 768px) {
-    width: 220px;
-    height: 220px;
+    width: 200px;
+    height: 200px;
   }
 `
 
@@ -30,9 +30,9 @@ export const VideoListItemThumbnailImage = styled.img`
   width: 330px;
   margin: 0px 0px 10px 0px;
   @media screen and (min-width: 768px) {
-    width: 220px;
-    height: 250px;
-    margin: 10px;
+    width: 200px;
+    height: 200px;
+    margin: 5px;
   }
 `
 

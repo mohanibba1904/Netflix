@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {AiFillHome} from 'react-icons/ai'
 import {HiFire} from 'react-icons/hi'
 import {SiYoutubegaming} from 'react-icons/si'
-import {BiListPlus} from 'react-icons/bi'
+import {MdFavorite} from 'react-icons/md'
 
 import Context from '../../Context/Context'
 
@@ -99,7 +99,7 @@ class SideBarSection extends Component {
                       activeRoute === 'savedVideos' ? '#909090' : 'transparent'
                     }
                   >
-                    <BiListPlus
+                    <MdFavorite
                       color={
                         activeRoute === 'savedVideos'
                           ? '#ff0000'
@@ -111,7 +111,7 @@ class SideBarSection extends Component {
                       color={sidebarContainerTextColor}
                     >
                       <Link
-                        to="/saved-videos"
+                        to="/favirote-movies"
                         style={{
                           textDecoration: 'none',
                           color: `${sidebarContainerTextColor}`,

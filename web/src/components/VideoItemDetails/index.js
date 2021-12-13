@@ -6,7 +6,6 @@ import {format, formatDistanceToNow} from 'date-fns'
 
 import {BsDot} from 'react-icons/bs'
 import {AiOutlineLike, AiOutlineDislike} from 'react-icons/ai'
-import {CgPlayListAdd} from 'react-icons/cg'
 
 import Header from '../Header'
 import SidebarSection from '../SidebarContainer'

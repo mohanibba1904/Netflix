@@ -28,7 +28,7 @@ export const MainContainer = styled.div`
   align-items: center;
   @media screen and (min-width: 768px) {
     width: 80%;
-    height: 100vh;
+    min-heigth: 100vh;
   }
 `
 
@@ -97,7 +97,6 @@ export const BannerButton = styled.button`
 
 export const VideosListHome = styled.div`
   list-style: none;
-  padding: 5px;
   margin: 0px;
   display: flex;
   flex-direction: column;
@@ -108,6 +107,7 @@ export const VideosListHome = styled.div`
   @media screen and (min-width: 768px) {
     flex-direction: row;
     justify-content: flex-start;
+    min-height: 100vh;
   }
 `
 

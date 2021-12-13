@@ -68,7 +68,7 @@ class Header extends Component {
                   {themeButtonImage}
                 </HeaderThemeButton>
                 <HeaderLargeUserImage
-                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
+                  src="https://res.cloudinary.com/dnbrzqhbk/image/upload/v1620298225/IMG_20200207_120942_m9auoa.jpg"
                   alt="profile"
                 />
                 <Popup

@@ -4,7 +4,6 @@ import {BiListPlus} from 'react-icons/bi'
 
 import Header from '../Header'
 import SidebarSection from '../SidebarContainer'
-import VideoListItemTrending from '../VideoListItemTrending'
 import Context from '../../Context/Context'
 
 import './index.css'
@@ -38,10 +37,10 @@ class SavedVideos extends Component {
               alt="no saved videos"
             />
             <NoVideosHeading color={headingColor}>
-              No saved videos found
+              No saved Movies found
             </NoVideosHeading>
             <NoVideosText color={textColor}>
-              You can save your videos while watching them
+              You can save your Movies while watching them
             </NoVideosText>
           </NoVideosViewContainer>
         )

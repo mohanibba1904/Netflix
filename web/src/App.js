@@ -71,7 +71,7 @@ class App extends Component {
 
           <AuthenticatedRoute
             exact
-            path="/saved-videos"
+            path="/favirote-movies"
             component={SavedVideos}
           />
           

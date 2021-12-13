@@ -1,8 +1,8 @@
-import {Link} from 'react-router-dom'
 
 import {BsDot} from 'react-icons/bs'
 import {format, formatDistanceToNow} from 'date-fns'
 import {CgPlayListAdd} from 'react-icons/cg'
+import {MdFavorite,MdFavoriteBorder} from 'react-icons/md'
 
 import Context from '../../Context/Context'
 
@@ -93,8 +93,8 @@ const VideoItemCard = props => (
                     isThisVideoSaved ? activeButtonColor : inActiveButtonColor
                   }
                 >
-                  <CgPlayListAdd />
-                  {isThisVideoSaved ? 'Saved' : 'Save'}
+                  
+                  {isThisVideoSaved ? <MdFavorite /> : <MdFavoriteBorder/>}
                 </VideoItemDetailsSmallButton>
                   </VideoListItemViewsTimeContainerLarge>
                 </VideoListItemContentItemsContainer>
