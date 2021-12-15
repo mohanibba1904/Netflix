@@ -24,3 +24,9 @@ class Token(BaseModel):
     jwt_token:str
     class Config:
         orm_mode = True
+
+class Favouritedata(BaseModel):
+    user_id: int
+    movie_id: int
+    class Config:
+        orm_mode = True        

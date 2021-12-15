@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import {Switch, Route, Redirect} from 'react-router-dom'
-
+import Cookies from 'js-cookie'
 import AuthenticatedRoute from './components/AuthenticatedRoute'
 import Login from './components/Login'
 import Home from './components/Home'
@@ -15,11 +15,23 @@ import './App.css'
 
 // Replace your code here
 class App extends Component {
-  state = {
-    isLightThemeActive: true,
-    activeRoute: 'home',
-    savedVideosList: [],
+    constructor(props){  
+    super(props);  
+    // const favorite = this.getFavoriteData()
+    // const empytlist = []
+    // favorite.forEach((product) => {
+    //   empytlist.push(product
+    // })
+
+    // console.log(updatefavorite)
+    this.state = {
+      isLightThemeActive: true,
+      activeRoute: 'home',
+      savedVideosList: [],
+    }
   }
+
+  
 
   alterTheme = () => {
     this.setState(prevItem => ({
@@ -31,7 +43,32 @@ class App extends Component {
     this.setState({activeRoute: routeName})
   }
 
+
+
+
+//   getFavoriteData = () =>{
+//     const url = "http://127.0.0.1:8000/favourite"
+//     const myToken = Cookies.get("jwt_token")
+//     // const new_data = {"user_name": "", "product_name": product_name, "image_url":image_url, "price": price, "rating": rating}
+//     const options = {
+//         method: "GET",
+//         headers:{
+//             "Content-Type":"application/json",
+//             'Access-Control-Allow-Origin': "*",
+//             "Authorization": "Bearer " + myToken
+//         },
+        
+//     }
+//     fetch(url, options).then(response => 
+//         response.json()
+//         ).then(data => {
+//             console.log(data)
+//         })
+// }
+
+
   saveOrDeleteVideo = newVideoItem => {
+    console.log(newVideoItem)
     const {savedVideosList} = this.state
     const isVideoSaved = savedVideosList.find(
       eachItem => eachItem.id === newVideoItem.id,

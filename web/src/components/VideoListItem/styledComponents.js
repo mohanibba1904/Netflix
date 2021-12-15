@@ -31,6 +31,7 @@ export const VideoListItemThumbnailImage = styled.img`
   margin: 0px 0px 10px 0px;
   @media screen and (min-width: 768px) {
     width: 220px;
+    height: 150px;
   }
 `
 

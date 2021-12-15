@@ -2,6 +2,8 @@ from typing import List
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
+from sqlalchemy.sql.expression import null
+from sqlalchemy.sql.functions import user
 from sharedlibrary import crud,models, schemas
 from datetime import datetime, timedelta 
 from sharedlibrary.database import SessionLocal, engine
@@ -105,10 +107,11 @@ def create_user(request:schemas.User,db: Session = Depends(get_db)):
 @app.post('/login')
 def login(request:schemas.Data,db:Session= Depends(get_db)):
     current_user=db.query(models.User).filter(models.User.user_name == request.user_name).first()
+    # user_id=db.query(models.User.id).filter(models.User.user_name == request.user_name).first()
     hashedPassword = current_user.password
     is_valid=pwd_context.verify(request.password, hashedPassword)
     if is_valid:
-        access_token = create_access_token(data={"sub": current_user.user_name})
+        access_token = create_access_token(data={"sub": current_user.user_name,"user_id": current_user.id})
         return{"access_token":access_token, "token_type":"bearer"}
     return "user not found"
 
@@ -117,15 +120,15 @@ def login(request:schemas.Data,db:Session= Depends(get_db)):
 
 
 @app.get('/movies')
-def get_movie(db: Session = Depends(get_db)):
-    productDetails = db.query(models.Movie).all()
+def get_movie(search: Optional[str] ,db: Session = Depends(get_db) ):
+    productDetails = db.query(models.Movie).filter(models.Movie.title.contains(search)).all()
     return productDetails
 
 
 
-@app.get("/movies/{movie_id}")
+@app.get("/movies/movieid/{movie_id}")
 def get_movie_id(movie_id: int, db: Session = Depends(get_db)):
-    db_user = db.query(models.Movie).filter(models.Movie.id== movie_id).first()
+    db_user = db.query(models.Movieid).filter(models.Movieid.id== movie_id).first()
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user    
@@ -135,3 +138,41 @@ def get_movie_id(movie_id: int, db: Session = Depends(get_db)):
 # @app.post("/test")
 # def test(user:Test):
     # return user
+
+@app.get("/favourite")
+def join(token: jwt = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    user_id: str = payload.get("user_id")
+    db_user = db.query(models.Favoritemovies.movie_id).filter(models.Favoritemovies.user_id== user_id).all()
+    lists = []
+    if db_user is not null:
+        for i in db_user:
+            my = db.query(models.Movie).filter(models.Movie.id== i.movie_id).first()
+            lists.append(my)
+        return lists
+
+    else:
+        return lists
+    # if user_id in db_user:
+    #     for i in db_user:
+    #         if()
+    #     my = db_user.filter(movie_id)
+    #     mv = db.query(models.Movie).filter(models.Movie.movie_id).all()
+    #     return mv
+    # # db_user = db.query(models.User).filter(models.User.id==1).first()
+    # # join =  [db.query(models.User(id=1)), db.query(models.Movie(id=1))]
+    # # value = crud.like_a_join(movie_id= movie_id,user_id= user_id,db=db)
+    # else:
+    
+    
+
+
+
+
+@app.post("/CreateFavourite")
+def create(request:schemas.Favouritedata,db:Session=Depends(get_db)):
+    add_fav= models.Favoritemovies(user_id=request.user_id,movie_id=request.movie_id)
+    db.add(add_fav)
+    db.commit()
+    db.refresh(add_fav)
+    return add_fav

@@ -82,28 +82,28 @@ class Home extends Component {
     })
     const {searchParameter} = this.state
     const JwtToken = Cookies.get('jwt_token')
-    const videosListUrl = `https://apis.ccbp.in/videos/all?search=${searchParameter}`
-    const options = {
-      headers: {
-        Authorization: `Bearer ${JwtToken}`,
-      },
-      method: 'GET',
-    }
-    const response = await fetch(videosListUrl, options)
+    const videosListUrl = `http://127.0.0.1:8000/movies?search=${searchParameter}`
+    // const options = {
+    //   headers: {
+    //     Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhaHVsIiwicm9sZSI6IlBSSU1FX1VTRVIiLCJpYXQiOjE2MjMwNjU1MzJ9.D13s5wN3Oh59aa_qtXMo3Ec4wojOx0EZh8Xr5C5sRkU`,
+    //   },
+    //   method: 'GET',
+    // }
+    const response = await fetch(videosListUrl)
     if (response.ok) {
       const responseData = await response.json()
-      const formattedData = responseData.videos.map(eachItem => ({
-        channel: {
-          name: eachItem.channel.name,
-          profileImageUrl: eachItem.channel.profile_image_url,
-        },
+      const formattedData = responseData.map(eachItem => ({
+        
+          name: eachItem.name,
+          profileImageUrl: eachItem.profile_image_url,
+        
         id: eachItem.id,
         publishedAt: eachItem.published_at,
         thumbnailUrl: eachItem.thumbnail_url,
         title: eachItem.title,
         viewCount: eachItem.view_count,
       }))
-      this.setState({
+        this.setState({
         videosList: formattedData,
         apiStatus: apiConstants.success,
       })

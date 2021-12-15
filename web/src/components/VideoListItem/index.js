@@ -49,7 +49,7 @@ const VideoItemCard = props => (
               <VideoListItemContentContainer>
                 <VideoListItemContentProfileContainer>
                   <VideoListItemContentProfileImage
-                    src={videoItem.channel.profileImageUrl}
+                    src={videoItem.profileImageUrl}
                     alt="channel logo"
                   />
                 </VideoListItemContentProfileContainer>
@@ -58,7 +58,7 @@ const VideoItemCard = props => (
                     {videoItem.title}
                   </VideoListItemContentItemsHeading>
                   <VideoListItemChannelName color={textColor}>
-                    {videoItem.channel.name}
+                    {videoItem.name}
                   </VideoListItemChannelName>
                   <VideoListItemViewsTimeContainerLarge>
                     <VideoListItemContainerItemText

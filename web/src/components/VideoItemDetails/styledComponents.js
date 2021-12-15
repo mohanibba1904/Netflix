@@ -159,7 +159,9 @@ export const VideoItemProfileContainer = styled.div`
 `
 
 export const VideoItemProfileImage = styled.img`
-  width: 10%;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   margin: 5px 10px 0px 10px;
 `
 

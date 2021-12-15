@@ -71,14 +71,14 @@ class Header extends Component {
                   src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
                   alt="profile"
                 />
-                <Popup
-                  trigger=<HeaderLogoutButton type="button">
-                    Logout
-                  </HeaderLogoutButton>
-                  modal
-                  className="popup-content"
-                >
-                  {close => (
+                <LogoutModalLogoutButton
+                          type="button"
+                          onClick={this.removeJwtToken}
+                        >
+                          Logout
+                        </LogoutModalLogoutButton>
+                
+                  {/* {close => (
                     <LogoutModalContainer backgroundColor={popupModalBgColor}>
                       <LogoutModalText color={popupModalTextColor}>
                         Are you sure, you want to logout?
@@ -96,7 +96,7 @@ class Header extends Component {
                       </LogoutButtonsContainer>
                     </LogoutModalContainer>
                   )}
-                </Popup>
+                 */}
               </HeaderLinksContainer>
             </HeaderContainer>
           )

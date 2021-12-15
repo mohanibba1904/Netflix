@@ -73,31 +73,33 @@ class VideoItemDetails extends Component {
     const {params} = match
     const {id} = params
     const jwtToken = Cookies.get('jwt_token')
-    const videoItemDetailsUrl = `https://apis.ccbp.in/videos/${id}`
-    const options = {
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
-      method: 'GET',
-    }
-    const videoDetailsResponse = await fetch(videoItemDetailsUrl, options)
+    const videoItemDetailsUrl = `http://127.0.0.1:8000/movies/movieid/${id}`
+    // const options = {
+    //   headers: {
+    //     Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhaHVsIiwicm9sZSI6IlBSSU1FX1VTRVIiLCJpYXQiOjE2MjMwNjU1MzJ9.D13s5wN3Oh59aa_qtXMo3Ec4wojOx0EZh8Xr5C5sRkU`,
+    //   },
+    //   method: 'GET',
+    // }
+    
+    const videoDetailsResponse = await fetch(videoItemDetailsUrl)
     if (videoDetailsResponse.ok) {
       const videoDetailsData = await videoDetailsResponse.json()
+      console.log(videoDetailsData)
       const formattedVideoDetailsData = {
-        channel: {
-          name: videoDetailsData.video_details.channel.name,
+        
+          name: videoDetailsData.name,
           profileImageUrl:
-            videoDetailsData.video_details.channel.profile_image_url,
+            videoDetailsData.profile_image_url,
           subscriberCount:
-            videoDetailsData.video_details.channel.subscriber_count,
-        },
-        id: videoDetailsData.video_details.id,
-        description: videoDetailsData.video_details.description,
-        publishedAt: videoDetailsData.video_details.published_at,
-        thumbnailUrl: videoDetailsData.video_details.thumbnail_url,
-        title: videoDetailsData.video_details.title,
-        viewCount: videoDetailsData.video_details.view_count,
-        videoUrl: videoDetailsData.video_details.video_url,
+            videoDetailsData.subscriber_count,
+      
+        id: videoDetailsData.id,
+        description: videoDetailsData.description,
+        publishedAt: videoDetailsData.published_at,
+        thumbnailUrl: videoDetailsData.thumbnail_url,
+        title: videoDetailsData.title,
+        viewCount: videoDetailsData.view_count,
+        videoUrl: videoDetailsData.video_url,
       }
       this.setState({
         videoDetails: formattedVideoDetailsData,
@@ -250,15 +252,15 @@ class VideoItemDetails extends Component {
             <VideoItemLine color={textColor} />
             <VideoItemProfileContainer>
               <VideoItemProfileImage
-                src={videoDetails.channel.profileImageUrl}
+                src={videoDetails.profileImageUrl}
                 alt="channel logo"
               />
               <VideoItemProfileDescriptionContainer>
                 <VideoProfileChannelName color={channelNameColor}>
-                  {videoDetails.channel.name}
+                  {videoDetails.name}
                 </VideoProfileChannelName>
                 <VideoProfileChannelSubscribers color={channelSubscriberColor}>
-                  {videoDetails.channel.subscriberCount}
+                  {videoDetails.subscriberCount}
                 </VideoProfileChannelSubscribers>
                 <VideoProfileDescriptionLargeText color={channelNameColor}>
                   {videoDetails.description}

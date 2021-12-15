@@ -4,7 +4,7 @@ import {BiListPlus} from 'react-icons/bi'
 
 import Header from '../Header'
 import SidebarSection from '../SidebarContainer'
-import VideoListItemTrending from '../VideoListItemTrending'
+import VideoListItem from '../VideoListItem'
 import Context from '../../Context/Context'
 
 import './index.css'
@@ -61,7 +61,7 @@ class SavedVideos extends Component {
             {this.renderSavedBannerContainer()}
             <VideosList>
               {savedVideosList.map(eachItem => (
-                <VideoListItemTrending key={eachItem.id} videoItem={eachItem} />
+                <VideoListItem key={eachItem.id} videoItem={eachItem} />
               ))}
             </VideosList>
           </>
