@@ -29,4 +29,10 @@ class Favouritedata(BaseModel):
     user_id: int
     movie_id: int
     class Config:
-        orm_mode = True        
+        orm_mode = True      
+
+
+class FavouritedatamovieId(BaseModel):
+    movie_id: int
+    class Config:
+        orm_mode = True            

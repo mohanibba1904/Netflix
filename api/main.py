@@ -2,7 +2,7 @@ from typing import List
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
-from sqlalchemy.sql.expression import null
+from sqlalchemy.sql.expression import and_, null
 from sqlalchemy.sql.functions import user
 from sharedlibrary import crud,models, schemas
 from datetime import datetime, timedelta 
@@ -39,7 +39,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 def create_access_token(data: dict):
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(minutes=15)
+    expire = datetime.utcnow() + timedelta(minutes=1500)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
@@ -169,10 +169,34 @@ def join(token: jwt = Depends(oauth2_scheme), db: Session = Depends(get_db)):
 
 
 
-@app.post("/CreateFavourite")
-def create(request:schemas.Favouritedata,db:Session=Depends(get_db)):
-    add_fav= models.Favoritemovies(user_id=request.user_id,movie_id=request.movie_id)
+@app.post("/CreateFavourite/{movie_id}")
+def create(movie_id: int,db:Session=Depends(get_db),token: jwt = Depends(oauth2_scheme)):
+    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    user_id: int = payload.get("user_id")
+    add_fav= models.Favoritemovies(user_id=user_id,movie_id=movie_id)
     db.add(add_fav)
     db.commit()
     db.refresh(add_fav)
     return add_fav
+
+
+# @app.post("/CreateFavourite")
+# def create(request:schemas.Favouritedata,db:Session=Depends(get_db)):
+#     add_fav= models.Favoritemovies(user_id=request.user_id,movie_id=request.movie_id)
+#     db.add(add_fav)
+#     db.commit()
+#     db.refresh(add_fav)
+#     return add_fav
+
+
+
+
+
+
+@app.delete('/favouritedelete/{movie_id}')
+def del_fav(movie_id: int,token: jwt = Depends(oauth2_scheme),db:Session=Depends(get_db)):
+    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    user_id: str = payload.get("user_id")
+    db.query(models.Favoritemovies).filter(and_(models.Favoritemovies.user_id == user_id, models.Favoritemovies.movie_id == movie_id)).delete(synchronize_session=False)
+    db.commit()
+    return 'done'  

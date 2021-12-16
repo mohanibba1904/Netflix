@@ -40,7 +40,7 @@ class Login extends Component {
   onSuccessfulLogin = jwtToken => {
     const {history} = this.props
     Cookies.set('jwt_token', jwtToken, {
-      expires: 30,
+      expires: 300,
       path: '/',
     })
     history.replace('/')
@@ -64,6 +64,7 @@ class Login extends Component {
     const response = await fetch(loginUrl, loginOptions)
     const responseData = await response.json()
     if (response.ok) {
+      console.log(responseData.access_token)
       this.onSuccessfulLogin(responseData.access_token)
       
     } else {

@@ -53,14 +53,18 @@ class SavedVideos extends Component {
     <Context.Consumer>
       {value => {
         const {savedVideosList} = value
+        console.log(savedVideosList)
         if (savedVideosList.length === 0) {
           return this.noVideosView()
         }
+        console.log(savedVideosList, "is not ok")
         return (
           <>
             {this.renderSavedBannerContainer()}
             <VideosList>
               {savedVideosList.map(eachItem => (
+                // console.log(eachItem)
+                
                 <VideoListItem key={eachItem.id} videoItem={eachItem} />
               ))}
             </VideosList>

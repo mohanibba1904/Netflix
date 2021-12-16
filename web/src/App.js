@@ -19,11 +19,11 @@ class App extends Component {
     super(props);  
     // const favorite = this.getFavoriteData()
     // const empytlist = []
-    // favorite.forEach((product) => {
-    //   empytlist.push(product
-    // })
+    // // favorite.forEach((product) => {
+    // //   console.log(favorite[i])
+    // // })
 
-    // console.log(updatefavorite)
+    // console.log(favorite, "is working")
     this.state = {
       isLightThemeActive: true,
       activeRoute: 'home',
@@ -31,7 +31,9 @@ class App extends Component {
     }
   }
 
-  
+  componentDidMount() {
+    this.getFavoriteData()
+  }
 
   alterTheme = () => {
     this.setState(prevItem => ({
@@ -45,30 +47,92 @@ class App extends Component {
 
 
 
-
-//   getFavoriteData = () =>{
-//     const url = "http://127.0.0.1:8000/favourite"
-//     const myToken = Cookies.get("jwt_token")
-//     // const new_data = {"user_name": "", "product_name": product_name, "image_url":image_url, "price": price, "rating": rating}
-//     const options = {
-//         method: "GET",
-//         headers:{
-//             "Content-Type":"application/json",
-//             'Access-Control-Allow-Origin': "*",
-//             "Authorization": "Bearer " + myToken
-//         },
+  getFavoriteAdd = (movie_id) =>{
+    console.log(movie_id,'add')
+    const url = `http://127.0.0.1:8000/CreateFavourite/${movie_id}`
+    const myToken = Cookies.get("jwt_token")
+    // const new_data = {"user_name": "", "product_name": product_name, "image_url":image_url, "price": price, "rating": rating}
+    const options = {
+        method: "POST",
+        headers:{
+            "Content-Type":"application/json",
+            'Access-Control-Allow-Origin': "*",
+            "Authorization": "Bearer " + myToken
+        },
         
-//     }
-//     fetch(url, options).then(response => 
-//         response.json()
-//         ).then(data => {
-//             console.log(data)
-//         })
-// }
+    }
+    fetch(url, options)
+}
+
+
+
+
+
+
+  getFavoriteDelete = (movie_id) =>{
+    console.log(movie_id,'delete')
+    const url = `http://127.0.0.1:8000/favouritedelete/${movie_id}`
+    const myToken = Cookies.get("jwt_token")
+    // const new_data = {"user_name": "", "product_name": product_name, "image_url":image_url, "price": price, "rating": rating}
+    const options = {
+        method: "DELETE",
+        headers:{
+            "Content-Type":"application/json",
+            'Access-Control-Allow-Origin': "*",
+            "Authorization": "Bearer " + myToken
+        },
+        
+    }
+    fetch(url,options).then(data=> console.log(data))
+
+}
+
+
+
+
+
+  getFavoriteData = () =>{
+    const url = "http://127.0.0.1:8000/favourite"
+    const myToken = Cookies.get("jwt_token")
+    // const new_data = {"user_name": "", "product_name": product_name, "image_url":image_url, "price": price, "rating": rating}
+    const options = {
+        method: "GET",
+        headers:{
+            "Content-Type":"application/json",
+            'Access-Control-Allow-Origin': "*",
+            "Authorization": "Bearer " + myToken
+        },
+        
+    }
+    fetch(url, options).then(response => 
+        response.json()
+        ).then(data => {
+
+          if (data.length !== 0) {
+            const formattedData = data.map(eachItem => ({
+              
+                name: eachItem.name,
+                profileImageUrl: eachItem.profile_image_url,
+              
+              id: eachItem.id,
+              publishedAt: eachItem.published_at,
+              thumbnailUrl: eachItem.thumbnail_url,
+              title: eachItem.title,
+              viewCount: eachItem.view_count,
+            }))
+            this.setState({
+              savedVideosList: formattedData
+            })
+          }else{
+            this.setState({savedVideosList: data})
+          }
+
+        })
+}
 
 
   saveOrDeleteVideo = newVideoItem => {
-    console.log(newVideoItem)
+    // console.log(newVideoItem)
     const {savedVideosList} = this.state
     const isVideoSaved = savedVideosList.find(
       eachItem => eachItem.id === newVideoItem.id,
@@ -78,11 +142,13 @@ class App extends Component {
       const filteredList = savedVideosList.filter(
         eachItem => eachItem.id !== newVideoItem.id,
       )
-      this.setState({savedVideosList: filteredList})
+      this.getFavoriteDelete(newVideoItem.id)
+      this.setState({savedVideosList: filteredList},this.getFavoriteData())
     } else {
       this.setState(prevState => ({
         savedVideosList: [...prevState.savedVideosList, newVideoItem],
-      }))
+      },this.getFavoriteData()))
+      this.getFavoriteAdd(newVideoItem.id)
     }
   }
 

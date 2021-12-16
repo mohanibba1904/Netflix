@@ -55,11 +55,9 @@ class VideoItemDetails extends Component {
   }
 
   formattedData = responseData =>
-    responseData.similar_videos.map(eachItem => ({
-      channel: {
-        name: eachItem.channel.name,
-        profileImageUrl: eachItem.channel.profile_image_url,
-      },
+    responseData.map(eachItem => ({
+        name: eachItem.name,
+        profileImageUrl: eachItem.profile_image_url,
       id: eachItem.id,
       publishedAt: eachItem.published_at,
       thumbnailUrl: eachItem.thumbnail_url,
